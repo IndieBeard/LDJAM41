@@ -5,29 +5,23 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour {
 
+	// public members should be assigned via Unity's inspector
 	public Text nameText;
 	public Text dialogueText;
 	public Image npcImage;
-
-	public Button[] buttons = new Button[3];
-	public Dialogue currentDialogue;
-
-	// the canvas will be assigned via Unity's inspector and should point to
-	// the parent canvas object that contains all the UI elements for the dialog system
-	// we'll use this canvas object to show/hide the entire UI at once with a single call
+	public Button[] choiceButtons = new Button[3];
+	// The canvas will be assigned via Unity's inspector and should point to
+	// the parent canvas object that contains all the UI elements for the dialog system.
+	// We'll use this canvas object to show/hide the entire UI at once with a single call.
 	public GameObject canvas;
+
+	// currentDialogue is a private member used for convenience
+	private Dialogue currentDialogue;
 
 	void Start () {
 		// hide the entire UI at start
 		canvas.SetActive (false);
 	}
-
-
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 
 	public void StartDialogue(Dialogue dialogue){
 
@@ -40,17 +34,17 @@ public class DialogueManager : MonoBehaviour {
 		// set the currentDialogue object to point to the dialogue object that was just passed in
 		currentDialogue = dialogue;
 
-		// first, clear all buttonTexts and hide all buttons in case we don't need all of them
-		for (int i = 0; i < buttons.Length; i++) {
-			buttons[i].GetComponentInChildren<Text>().text = "";
-			buttons[i].gameObject.SetActive (false);
+		// first, clear all buttonTexts and hide all choiceButtons in case we don't need all of them
+		for (int i = 0; i < choiceButtons.Length; i++) {
+			choiceButtons[i].GetComponentInChildren<Text>().text = "";
+			choiceButtons[i].gameObject.SetActive (false);
 		}
 
-		// set the text for and show the buttons we do want
+		// set the text for and show the choiceButtons we do want
 		for (int i = 0; i < question.answers.Length; i++) {
-			buttons[i].GetComponentInChildren<Text>().text = question.answers[i];
-			buttons[i].gameObject.SetActive (true);
-			buttons [i].interactable = true;
+			choiceButtons[i].GetComponentInChildren<Text>().text = question.answers[i];
+			choiceButtons[i].gameObject.SetActive (true);
+			choiceButtons [i].interactable = true;
 		}
 
 		// show the entire UI
@@ -63,13 +57,13 @@ public class DialogueManager : MonoBehaviour {
 
 	public void HandleChoiceClick(Button button){
 
-		// disable all choice buttons temporarily so the user doesn't click on something
+		// disable all choice choiceButtons temporarily so the user doesn't click on something
 		// while we're waiting for the UI to disappear
-		for (int i = 0; i < buttons.Length; i++) {
-			buttons [i].interactable = false;
+		for (int i = 0; i < choiceButtons.Length; i++) {
+			choiceButtons [i].interactable = false;
 		}
 
-		// the buttons have names "Choice1" and "Choice2" and "Choice3"
+		// the choiceButtons have names "Choice1" and "Choice2" and "Choice3"
 		// parse out the int so we have an index
 		// there's surely a better way to do this...
 		int choice_number = int.Parse(button.name.Replace("Choice", "")) - 1;
@@ -80,7 +74,6 @@ public class DialogueManager : MonoBehaviour {
 
 		// wait a specified number of seconds before hiding the UI again
 		StartCoroutine (WaitAndHideUI (2));
-
 
 		// finally, increment the internal counter for that particular dialogue object
 		// so that the next time it is accessed, the next question can be selected
