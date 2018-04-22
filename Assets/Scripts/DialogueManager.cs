@@ -7,86 +7,80 @@ public class DialogueManager : MonoBehaviour {
 
 	public Text nameText;
 	public Text dialogueText;
-	public Text[] buttonTexts = new Text[3];
-	//public Animator animator;
-	public Dialogue currentDate;
+	public Button[] buttons = new Button[3];
+	public Dialogue currentDialogue;
 
-	//this variable will keep track of all our options in our dialogue
-	private Queue<string> sentences;
-	private bool awaitingInput;
-	private int choiceSelected = 0;
+	// the canvas will be assigned via Unity's inspector and should point to
+	// the parent canvas object that contains all the UI elements for the dialog system
+	// we'll use this canvas object to show/hide the entire UI at once with a single call
+	public GameObject canvas;
 
-	// Use this for initialization
 	void Start () {
-		sentences = new Queue<string>();
+		// hide the entire UI at start
+		canvas.SetActive (false);
 	}
-	
+
+
 	// Update is called once per frame
 	void Update () {
 
 	}
-/* 
-	public void StartDialogue(Dialogue dialogue){
 
-		nameText.text = dialogue.name;
 
-		//animator.SetBool("IsOpen", true);
+	public void StartDialogue(Dialogue dialogue, Question question){
 
-		//Clear is a Queue function that will clear any sentences that were there on a previous conversation
-		sentences.Clear();
+		// update the text at the top to display this NPC's name
+		nameText.text = dialogue.characterName;
 
-		foreach (string sentence in dialogue.sentences){
-			sentences.Enqueue(sentence);
+		// set the currentDialogue object to point to the dialogue object that was just passed in
+		currentDialogue = dialogue;
+
+		// first, clear all buttonTexts and hide all buttons in case we don't need all of them
+		for (int i = 0; i < buttons.Length; i++) {
+			buttons[i].GetComponentInChildren<Text>().text = "";
+			buttons[i].gameObject.SetActive (false);
 		}
 
-		DisplayNextSentence();
-	}
-*/
+		// set the text for and show the buttons we do want
+		for (int i = 0; i < question.answers.Length; i++) {
+			buttons[i].GetComponentInChildren<Text>().text = question.answers[i];
+			buttons[i].gameObject.SetActive (true);
+			buttons [i].interactable = true;
+		}
 
-	public void StartDialogue(Dialogue dialogue, string sentence){
-		nameText.text = dialogue.name;
-		currentDate = dialogue;
+		// show the UI
+		canvas.SetActive (true);
+
+		// type the question out
 		StopAllCoroutines();
-		StartCoroutine(TypeSentence(sentence));
-
-		if(dialogue.queuePos == 0){
-			for(int i = 0; i <= dialogue.answers1.Length; i++){
-				buttonTexts[i].text = dialogue.answers1[i];
-			}
-		}	
-		if(dialogue.queuePos == 1){
-			for(int i = 0; i <= dialogue.answers1.Length; i++){
-				buttonTexts[i].text = dialogue.answers2[i];
-			}
-		}
-		if(dialogue.queuePos == 2){
-			for(int i = 0; i <= dialogue.answers1.Length; i++){
-				buttonTexts[i].text = dialogue.answers3[i];
-			}
-		}	
+		StartCoroutine( TypeSentence(question.question) );
 	}
 
-	public void choice1(){
-		//currentDate.choiceMade(1);
-	}
+	public void HandleChoiceClick(Button button){
 
-	public void choice2(){
-		//currentDate.choiceMade(2);
-	}
-
-	public void choice3(){
-		//currentDate.choiceMade(3);
-	}
-
-	public void DisplayNextSentence(){
-		if (sentences.Count == 0){//if we are at the end of our sentences, end the dialogue
-			EndDialogue();
-			return;
+		// disable all choice buttons temporarily so the user doesn't click on something
+		// while we're waiting for the UI to disappear
+		for (int i = 0; i < buttons.Length; i++) {
+			buttons [i].interactable = false;
 		}
 
-		string sentence = sentences.Dequeue();
+		// the buttons have names "Choice1" and "Choice2" and "Choice3"
+		// parse out the int so we have an index
+		// there's surely a better way to do this...
+		int choice_number = int.Parse(button.name.Replace("Choice", "")) - 1;
+
+		// type out the appropriate response to the choice that the player selected
 		StopAllCoroutines();
-		StartCoroutine(TypeSentence(sentence));
+		StartCoroutine( TypeSentence( currentDialogue.questions[currentDialogue.getActiveQuestionNumber()].responses[choice_number] ) );
+
+		// wait a specified number of seconds before hiding the UI again
+		StartCoroutine (WaitAndHideUI (2));
+
+
+		// finally, increment the internal counter for that particular dialogue object
+		// so that the next time it is accessed, the next question can be selected
+		currentDialogue.incrementActiveQuestionNumber();
+
 
 	}
 
@@ -98,9 +92,9 @@ public class DialogueManager : MonoBehaviour {
 		}
 	}
 
-	void EndDialogue(){
-		Debug.Log("End of conversation");
-		//animator.SetBool("IsOpen", false);
+	IEnumerator WaitAndHideUI(int seconds){
+		yield return new WaitForSeconds (seconds);
+		// hide the UI
+		canvas.SetActive (false);
 	}
-
 }
