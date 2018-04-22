@@ -28,7 +28,7 @@ public class DialogueTrigger : MonoBehaviour {
 		FindObjectOfType<DialogueManager>().StartDialogue(dialogue, dialogue.sentences[dialogue.queuePos]);
 		dialogue.queuePos++;
 	}
-
+/* 
 	public void choices(){
 		if(dialogue.queuePos == 0){
 			TextBox.GetComponent<Text>().text = "Yes";			
@@ -40,5 +40,5 @@ public class DialogueTrigger : MonoBehaviour {
 			TextBox.GetComponent<Text>().text = "Good choice!";
 		}
 	}
-
+*/
 }
