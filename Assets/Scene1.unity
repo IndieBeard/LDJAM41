@@ -1170,10 +1170,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 522850718}
   dialogueText: {fileID: 979352047}
-  buttonTexts:
-  - {fileID: 1489969210}
-  - {fileID: 1241165289}
-  - {fileID: 1804843467}
+  buttons:
+  - {fileID: 948829093}
+  - {fileID: 778340814}
+  - {fileID: 1865540194}
   currentDialogue:
     characterName: 
     questions: []
