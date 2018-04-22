@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class Dialogue{
 
-	//this class is an object that we can pass into the DialogueManager whenever we want to start a new dialogue
-	// Use this for initialization
-
 	public string characterName;
+	public Sprite characterSprite;
+
 	private int activeQuestionNumber;
 	public Question[] questions;
 

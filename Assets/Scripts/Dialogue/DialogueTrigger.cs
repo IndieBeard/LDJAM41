@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour {
 
@@ -9,6 +6,10 @@ public class DialogueTrigger : MonoBehaviour {
 
 	//we want to locate our dialogue manager
 	public void TriggerDialogue(){
-		FindObjectOfType<DialogueManager>().StartDialogue(dialogue, dialogue.questions[dialogue.getActiveQuestionNumber()]);
+		// perform a simple bounds check to ensure that this dialogue object has more questions
+		// that haven't been answered before attempting to call StartDialogue()
+		if (dialogue.getActiveQuestionNumber () < dialogue.questions.Length) {
+			FindObjectOfType<DialogueManager> ().StartDialogue (dialogue);
+		}
 	}
 }

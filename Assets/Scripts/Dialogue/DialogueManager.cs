@@ -7,6 +7,8 @@ public class DialogueManager : MonoBehaviour {
 
 	public Text nameText;
 	public Text dialogueText;
+	public Image npcImage;
+
 	public Button[] buttons = new Button[3];
 	public Dialogue currentDialogue;
 
@@ -27,10 +29,13 @@ public class DialogueManager : MonoBehaviour {
 	}
 
 
-	public void StartDialogue(Dialogue dialogue, Question question){
+	public void StartDialogue(Dialogue dialogue){
 
+		Question question = dialogue.questions [dialogue.getActiveQuestionNumber ()];
 		// update the text at the top to display this NPC's name
 		nameText.text = dialogue.characterName;
+		// update canvas's Image object's sprite attribute to point to this NPC's sprite
+		npcImage.sprite = dialogue.characterSprite;
 
 		// set the currentDialogue object to point to the dialogue object that was just passed in
 		currentDialogue = dialogue;
@@ -48,7 +53,7 @@ public class DialogueManager : MonoBehaviour {
 			buttons [i].interactable = true;
 		}
 
-		// show the UI
+		// show the entire UI
 		canvas.SetActive (true);
 
 		// type the question out
