@@ -41,8 +41,8 @@ public class DialogueManager : MonoBehaviour {
 		}
 
 		// set the text for and show the choiceButtons we do want
-		for (int i = 0; i < question.answers.Length; i++) {
-			choiceButtons[i].GetComponentInChildren<Text>().text = question.answers[i];
+		for (int i = 0; i < question.choices.Length; i++) {
+			choiceButtons[i].GetComponentInChildren<Text>().text = question.choices[i].playerChoice;
 			choiceButtons[i].gameObject.SetActive (true);
 			choiceButtons [i].interactable = true;
 		}
@@ -70,16 +70,14 @@ public class DialogueManager : MonoBehaviour {
 
 		// type out the appropriate response to the choice that the player selected
 		StopAllCoroutines();
-		StartCoroutine( TypeSentence( currentDialogue.questions[currentDialogue.getActiveQuestionNumber()].responses[choice_number] ) );
+		StartCoroutine( TypeSentence( currentDialogue.questions[currentDialogue.getActiveQuestionNumber()].choices[choice_number].npcResponse ) );
 
 		// wait a specified number of seconds before hiding the UI again
-		StartCoroutine (WaitAndHideUI (2));
+		StartCoroutine (WaitAndHideUI (3));
 
 		// finally, increment the internal counter for that particular dialogue object
-		// so that the next time it is accessed, the next question can be selected
+		// so that the next time it is accessed, the next question can be displayed
 		currentDialogue.incrementActiveQuestionNumber();
-
-
 	}
 
 	IEnumerator TypeSentence (string sentence){

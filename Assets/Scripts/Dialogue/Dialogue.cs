@@ -12,6 +12,8 @@ public class Dialogue{
 	// should be 3:4 in width:height ratio and (apparently) pixel multiples of 4
 	// so, 300x400 or 480x640 or 600x800 or...
 	public Sprite characterSprite;
+
+	// an array of Question objects
 	public Question[] questions;
 
 	private int activeQuestionNumber;

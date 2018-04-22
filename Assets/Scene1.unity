@@ -664,30 +664,33 @@ MonoBehaviour:
     characterSprite: {fileID: 21300000, guid: a8c9c6904469e4c72b5b828dc0ff5527, type: 3}
     questions:
     - question: What's your favorite movie?
-      answers:
-      - 2 Fast 2 Furious
-      - 5cm Per Second
-      - 13 Ghosts
-      responses:
-      - '...gotta go fast, I guess.'
-      - That's my favorite, too.
-      - Too spooky for me.
+      choices:
+      - playerChoice: 2 Fast 2 Furious
+        npcResponse: '...gotta go fast, I guess.'
+      - playerChoice: 5cm per Second
+        npcResponse: 'Woah!
+
+          That''s my favorite, too!'
+      - playerChoice: 13 Ghosts
+        npcResponse: Too spooky for me.
     - question: Do you like haiku?
-      answers:
-      - Yes
-      - No
-      responses:
-      - I think I'm feeling a connection!
-      - Hmm...
+      choices:
+      - playerChoice: my lifeblood flows in 5/7/5
+        npcResponse: 'three lines of poem
+
+          might be too much to work with
+
+          when three words suffice'
+      - playerChoice: nah, brah
+        npcResponse: Oh...
     - question: Do you like waffles?
-      answers:
-      - Yeah, I love waffles!
-      - Pancakes are better.
-      - Hash browns or bust.
-      responses:
-      - Let's get married.
-      - Pancakes suck.
-      - Hash browns suck.
+      choices:
+      - playerChoice: Yeah, I love waffles!
+        npcResponse: Let's get married. <3
+      - playerChoice: Pancakes are better.
+        npcResponse: I'm more into waffles, personally...
+      - playerChoice: Sausage is better.
+        npcResponse: I'm sorry to hear that.
 --- !u!114 &425710787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1240,14 +1243,10 @@ MonoBehaviour:
   nameText: {fileID: 522850718}
   dialogueText: {fileID: 979352047}
   npcImage: {fileID: 425134901}
-  buttons:
+  choiceButtons:
   - {fileID: 948829093}
   - {fileID: 778340814}
   - {fileID: 1865540194}
-  currentDialogue:
-    characterName: 
-    characterSprite: {fileID: 0}
-    questions: []
   canvas: {fileID: 41130066}
 --- !u!4 &782510967
 Transform:
@@ -2354,20 +2353,21 @@ MonoBehaviour:
     characterSprite: {fileID: 21300000, guid: ed336891ee341452392484f40a2e5b8d, type: 3}
     questions:
     - question: Why wear pants?
-      answers:
-      - An age old question.
-      - You're gross.
-      - Pants off dance off.
-      responses:
-      - I see you're familiar with Homestar Runner.  Nice.
-      - Yeah.  Yeah, I am.
-      - Uh, no.
+      choices:
+      - playerChoice: An age-old question.
+        npcResponse: 'I see you''re familiar with Homestar Runner.
+
+          Nice.'
+      - playerChoice: You're gross.
+        npcResponse: "Yeah.\nYeah, I am. \n:("
+      - playerChoice: w O W u r jejin!
+        npcResponse: 'Whether ''tis nobler in the mind to suffer
+
+          The slings and arrows of pants...'
     - question: 
-      answers: []
-      responses: []
+      choices: []
     - question: 
-      answers: []
-      responses: []
+      choices: []
 --- !u!114 &2114650155
 MonoBehaviour:
   m_ObjectHideFlags: 0
