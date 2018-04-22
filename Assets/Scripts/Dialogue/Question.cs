@@ -4,7 +4,7 @@
 public class Question {
 
 	//first parameter is the minimum amount of lines the area is and the second is the max
-	[TextArea(3, 20)]
+	[TextArea]
 	// question is what the NPC will initially ask the player
 	public string question;
 
