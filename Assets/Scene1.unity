@@ -574,8 +574,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: 0}
-  m_SizeDelta: {x: 250, y: 250}
+  m_AnchoredPosition: {x: -187.5, y: 0}
+  m_SizeDelta: {x: 187.5, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &425134901
 MonoBehaviour:
@@ -661,6 +661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     characterName: Dan
+    characterSprite: {fileID: 21300000, guid: a8c9c6904469e4c72b5b828dc0ff5527, type: 3}
     questions:
     - question: What's your favorite movie?
       answers:
@@ -900,7 +901,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: 125}
+  m_AnchoredPosition: {x: 100, y: 100}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &522850718
@@ -1238,12 +1239,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 522850718}
   dialogueText: {fileID: 979352047}
+  npcImage: {fileID: 425134901}
   buttons:
   - {fileID: 948829093}
   - {fileID: 778340814}
   - {fileID: 1865540194}
   currentDialogue:
     characterName: 
+    characterSprite: {fileID: 0}
     questions: []
   canvas: {fileID: 41130066}
 --- !u!4 &782510967
@@ -1413,8 +1416,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: -25}
-  m_SizeDelta: {x: 300, y: 250}
+  m_AnchoredPosition: {x: 100, y: -30}
+  m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &979352047
 MonoBehaviour:
@@ -1894,6 +1897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     characterName: 
+    characterSprite: {fileID: 0}
     questions: []
 --- !u!114 &1441423095
 MonoBehaviour:
@@ -2347,6 +2351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     characterName: Andy
+    characterSprite: {fileID: 21300000, guid: ed336891ee341452392484f40a2e5b8d, type: 3}
     questions:
     - question: Why wear pants?
       answers:
@@ -2354,7 +2359,7 @@ MonoBehaviour:
       - You're gross.
       - Pants off dance off.
       responses:
-      - I see you're familiar with HomeStarRunner.  Nice.
+      - I see you're familiar with Homestar Runner.  Nice.
       - Yeah.  Yeah, I am.
       - Uh, no.
     - question: 
